@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Getting into JavaScript</title>
 </head>
+
 <body>
-    <h1>Author Entry  Mahesh Gudla</h1>
+    <h1>Author Entry Mahesh Gudla</h1>
     <h2>Guess the Author</h2>
 
     <form>
@@ -19,10 +21,19 @@
     </form>
     <!-- Element to display results -->
     <p id="result">Good: 0 | Oops: 0</p>
+    
+    <!-- Container div for the image -->
+    <div onclick="selectImage()">
+        <img id="changingImage" src="Delhi.jpg" alt="Delhi" class="img-fluid rounded" style="width: 100px; height: 100px;">
+    </div>
+
     <script>
         // Global variables to keep track of good and oops counts
         var good = 0;
         var oops = 0;
+        // Global variable to keep track of the current image
+        var useImage = 1;
+
         // Function to check the author guess
         function checkAuthor() {
             // Get the value from the hidden author input element
@@ -41,6 +52,30 @@
             const resultElement = document.getElementById("result");
             resultElement.innerHTML = "Good: " + good + " | Oops: " + oops;
         }
+
+        // Function to change the image on each click
+        function selectImage() {
+            // Get the image element
+            const imageElement = document.getElementById("changingImage");
+
+            // Switch on the useImage variable
+            switch (useImage) {
+                case 1:
+                    imageElement.src = "guntur.jpg";
+                    useImage = 2;
+                    break;
+                case 2:
+                    imageElement.src = "uttarakhand.jpg";
+                    useImage = 3;
+                    break;
+                case 3:
+                    imageElement.src = "Delhi.jpg";
+                    useImage = 1;
+                    break;
+                // Add more cases if needed
+            }
+        }
     </script>
 </body>
+
 </html>
