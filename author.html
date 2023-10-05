@@ -1,80 +1,100 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Getting into JavaScript</title>
+  <title>Getting into JavaScript</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
+  integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" 
+  integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </head>
-
 <body>
+  <div class="container">
     <h1>Author Entry Mahesh Gudla</h1>
     <h2>Guess the Author</h2>
 
     <form>
-        <!-- Input for the secret string (hidden author name) -->
-        <label for="secretInput">The hidden author name:</label>
-        <input type="password" id="secretInput" name="secretInput" value="Dickens" required><br>
-        <!-- Input for the user's guess -->
-        <label for="guessInput">Guess the author:</label>
-        <input type="text" id="guessInput" name="guessInput" required><br>
-        <!-- Button to check the guess -->
-        <input type="button" onclick="checkAuthor()" value="Check the guess">
-    </form>
-    <!-- Element to display results -->
-    <p id="result">Good: 0 | Oops: 0</p>
-    
-    <!-- Container div for the image -->
-    <div onclick="selectImage()">
-        <img id="changingImage" src="Delhi.jpg" alt="Delhi" class="img-fluid rounded" style="width: 100px; height: 100px;">
+        <div class="mb-3">
+          <label for="secretInput" class="form-label">The hidden author name:</label>
+          <input type="password" id="secretInput" name="secretInput" value="Dickens" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="guessInput" class="form-label">Guess the author:</label>
+          <input type="text" id="guessInput" name="guessInput" class="form-control" required>
+        </div>
+        <input type="button" onclick="checkAuthor()" class="btn btn-primary" value="Check the guess">
+      </form>
+
+    <p id="result" class="mt-3">Good: 0 | Oops: 0</p>
+
+    <div id="changingImageContainer" class="mt-3" onclick="selectImage()">
+      <img id="changingImage" src="Delhi.jpg" alt="Delhi" class="img-fluid rounded" style="width: 100px; height: 100px;">
     </div>
 
-    <script>
-        // Global variables to keep track of good and oops counts
-        var good = 0;
-        var oops = 0;
-        // Global variable to keep track of the current image
-        var useImage = 1;
+    <div id="incorrect-guesses" class="mt-3">Incorrect guesses:</div>
+  </div>
 
-        // Function to check the author guess
-        function checkAuthor() {
-            // Get the value from the hidden author input element
-            const secretValue = document.getElementById("secretInput").value;
-            // Get the value from the guess input element
-            const userGuess = document.getElementById("guessInput").value;
-            // Compare the values and update counts and display results
-            if (userGuess === secretValue) {
-                good++;
-                alert("You got it right!");
-            } else {
-                oops++;
-                alert("Sorry");
-            }
-            // Update the innerHTML of the result element
-            const resultElement = document.getElementById("result");
-            resultElement.innerHTML = "Good: " + good + " | Oops: " + oops;
+  <script>
+    // Global variables to keep track of good and oops counts
+    var good = 0;
+    var oops = 0;
+    // Global variable to keep track of the current image
+    var useImage = 1;
+
+    // Function to check the author guess
+    function checkAuthor() {
+      // Get the value from the hidden author input element
+      const secretValue = document.getElementById("secretInput").value;
+      // Get the value from the guess input element
+      const userGuess = document.getElementById("guessInput").value;
+      // Compare the values and update counts and display results
+      if (userGuess === secretValue) {
+        good++;
+        alert("You got it right!");
+      } else {
+        oops++;
+        alert("Sorry");
+
+        // Update the incorrect guesses div
+        const incorrectGuessesDiv = document.getElementById('incorrect-guesses');
+        incorrectGuessesDiv.innerHTML += userGuess + ', ';
+
+        // If there are 7 incorrect guesses, show an alert and disable the image
+        if (oops === 7) {
+          alert('Sorry, ran out of guesses.');
+          document.getElementById('changingImageContainer').onclick = null;
         }
+      }
 
-        // Function to change the image on each click
-        function selectImage() {
-            // Get the image element
-            const imageElement = document.getElementById("changingImage");
+      // Update the innerHTML of the result element
+      const resultElement = document.getElementById("result");
+      resultElement.innerHTML = "Good: " + good + " | Oops: " + oops;
+    }
 
-            // Switch on the useImage variable
-            switch (useImage) {
-                case 1:
-                    imageElement.src = "guntur.jpg";
-                    useImage = 2;
-                    break;
-                case 2:
-                    imageElement.src = "uttarakhand.jpg";
-                    useImage = 3;
-                    break;
-                case 3:
-                    imageElement.src = "Delhi.jpg";
-                    useImage = 1;
-                    break;
-                // Add more cases if needed
-            }
-        }
-    </script>
+    // Function to change the image on each click
+    function selectImage() {
+      // Get the image element
+      const imageElement = document.getElementById("changingImage");
+
+      // Switch on the useImage variable
+      switch (useImage) {
+        case 1:
+          imageElement.src = "guntur.jpg";
+          useImage = 2;
+          break;
+        case 2:
+          imageElement.src = "uttarakhand.jpg";
+          useImage = 3;
+          break;
+        case 3:
+          imageElement.src = "Delhi.jpg";
+          useImage = 1;
+          break;
+        // Add more cases if needed
+      }
+    }
+  </script>
 </body>
 </html>
