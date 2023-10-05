@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h2>Mahesh Gudla goes on a cruise</h2>
+    <title>Cruise Selection</title>
+
+    <form>
+        <input type="checkbox" id="SharesCabin" name="Shares Cabin" checked>
+        <label for="SharesCabin">Shares Cabin</label><br>
+     
+        <input type="checkbox" id="Breakfast" name="Breakfast" checked>
+        <label for="Breakfast">Breakfast</label><br>
+     
+        <input type="checkbox" id="Pool_Pass" name="Pool Pass">
+        <label for="Pool_Pass">Pool Pass</label><br><br>
+    </form>
+    <button onclick="selectCruise()">Select a cruise</button>
+    <p id="cruise_Select"></p>
+    <br>
+    <form>
+        <label for="days">Enter the number of days</label>
+        <input type="text" id="days" name="days" value="days"><br><br>
+       
+        <label for="price">Enter price</label>
+        <input type="text" id="price" name="price" value="price"><br><br>
+       
+    </form>
+    <button onclick="updateCruise()">Update the cruise</button>
+    <p id="cruise_Update"></p>
+    
+    
+    <script>
+     my_cruise={};
+    function selectCruise() {
+        my_cruise={};
+    
+        my_cruise.shared = document.getElementById('SharesCabin').checked;
+        my_cruise.breakfast = document.getElementById('Breakfast').checked;
+        my_cruise.pool = document.getElementById('Pool_Pass').checked;
+    
+        document.getElementById('cruise_Select').textContent = `${JSON.stringify(my_cruise)}`;
+    }
+    
+    function updateCruise() {
+        const days = document.getElementById('days').value;
+        const price = document.getElementById('price').value;
+    
+        my_cruise["days"] = days;
+        my_cruise["price"] = price;
+    
+        document.getElementById('cruise_Update').textContent = `${JSON.stringify(my_cruise)}`;
+    }
+    </script>
+    
+    </body>
+    </html> 
